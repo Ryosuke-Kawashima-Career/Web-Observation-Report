@@ -1,0 +1,39 @@
+{
+  "name": "web-observation-report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "luxon": "^3.7.2",
+    "next": "^16.2.1",
+    "playwright": "^1.58.2",
+    "playwright-stealth": "^0.0.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.1",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
