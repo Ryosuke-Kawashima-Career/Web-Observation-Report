@@ -7,25 +7,34 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "verify:phase1": "npx ts-node scripts/verify-phase1.ts",
+    "verify:phase2": "npx ts-node scripts/verify-phase2.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "better-sqlite3": "^12.8.0",
+    "diff": "^8.0.4",
+    "dotenv": "^17.3.1",
     "luxon": "^3.7.2",
     "next": "^16.2.1",
+    "pixelmatch": "^7.1.0",
     "playwright": "^1.58.2",
     "playwright-stealth": "^0.0.1",
+    "pngjs": "^7.0.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
+    "@types/diff": "^7.0.2",
     "@types/luxon": "^3.7.1",
     "@types/node": "^25.5.0",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.27",

@@ -7,7 +7,9 @@
       "Bash(source .venv/Scripts/activate)",
       "Bash(uv pip:*)",
       "Bash(python:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(find /d/Prototypes/Web-Observation-Report/src -type f \\\\\\(-name *.ts -o -name *.tsx -o -name *.json \\\\\\))",
+      "Bash(find /d/Prototypes/Web-Observation-Report/src/components -type f \\\\\\(-name *.ts -o -name *.tsx \\\\\\))"
     ]
   }
 }
