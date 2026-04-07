@@ -1,0 +1,42 @@
+=== Phase 2 Verification: Change Detection & AI Summaries ===
+
+[target] Reusing existing target (ID=3)
+[baseline] Found: baselines\3-20260405-220343.png
+
+[current] Capturing current snapshot窶ｦ
+[current] Saved: baselines\3-20260405-220449.png (ID=8)
+
+[visual] Running pixel-level comparison窶ｦ
+[visual] Pixel change: 1.88%
+[visual] Heatmap: diffs\3-20260405-220450-diff.png
+
+[structural] Diffing DOM text content窶ｦ
+[structural] Change: 40.00%
+[structural] +1 lines / -1 lines
+[structural] Sample changes:
+  [REMOVED] ca3fc07a-aaf9-4769-b5dd-9a0af4e8a5ef
+  [ADDED] 73c1787a-6ce0-4c7c-8aac-fea073317d19
+
+[gemini] Generating AI summary窶ｦ
+[gemini] Model: models/gemini-2.5-flash
+[gemini] Tokens used: 1551
+
+--- AI Summary ---
+Expedia underwent a minor update. The most noticeable change is a slight variation in the captcha challenge, with the background image used in the "slide to complete puzzle" task shifting from a river scene to a forest scene. The core functionality and overall user interface of the captcha remain unchanged. There were no observed changes to pricing, promotions, or other significant UI elements. This appears to be routine system maintenance or a minor content refresh for the captcha, requiring no immediate follow-up action.
+------------------
+
+[db] Saving comparison record窶ｦ
+[db] Comparison saved (ID=5)
+
+=== Phase 2 Verification PASSED ===
+Latest comparison: {
+  "id": 5,
+  "target_id": 3,
+  "baseline_snapshot_id": 6,
+  "current_snapshot_id": 8,
+  "heatmap_path": "diffs\\3-20260405-220450-diff.png",
+  "pixel_change_pct": 1.881317515432099,
+  "structural_diff": "- ca3fc07a-aaf9-4769-b5dd-9a0af4e8a5ef\n+ 73c1787a-6ce0-4c7c-8aac-fea073317d19",
+  "ai_summary": "Expedia underwent a minor update. The most noticeable change is a slight variation in the captcha challenge, with the background image used in the \"slide to complete puzzle\" task shifting from a river scene to a forest scene. The core functionality and overall user interface of the captcha remain unchanged. There were no observed changes to pricing, promotions, or other significant UI elements. This appears to be routine system maintenance or a minor content refresh for the captcha, requiring no immediate follow-up action.",
+  "compared_at": "2026-04-05 13:04:56"
+}

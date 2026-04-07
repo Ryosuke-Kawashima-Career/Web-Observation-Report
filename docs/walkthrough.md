@@ -129,7 +129,12 @@ npm run verify:phase2
 
 ## Next Steps
 
-### Phase 2.5: Testing
+### Phase 2.5: Testing - IN PROGRESS
+- [x] Run integration test for **Expedia** baseline and change detection.
+- **Verification (`scripts/verify-phase2-expedia.ts`)**:
+  - Test input: Expedia homepage (`https://www.expedia.com`).
+  - Output metrics recorded to SQLite correctly: visual change (1.88%), structural change.
+  - Successfully generated the Markdown report `docs/expedia-report.md`.
 - Write unit tests for `VisualComparator`, `StructuralComparator`, and `GeminiService`.
 - Add a mock Gemini client so tests run without a real API key.
 

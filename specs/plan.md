@@ -43,20 +43,21 @@ A robust, AI-powered web monitoring system designed to track UI and pricing chan
 
 **Goal**: Detect differences and explain them using Gemini.
 
-- [ ] **Visual Comparator (FR-05, FR-07)**:
+- [x] **Visual Comparator (FR-05, FR-07)**:
   - Generate a "Difference Heatmap" PNG.
-- [ ] **Structural Comparator (FR-07)**:
+- [x] **Structural Comparator (FR-07)**:
   - Diff the DOM snapshots using a text-based diffing algorithm.
   - Extract specific changes (e.g., text content, CSS class changes).
-- [ ] **Gemini Integration (FR-09)**:
+- [x] **Gemini Integration (FR-09)**:
   - Feed the structural diff and (optionally) vision-based analysis to Gemini.
   - **Prompt Engineering**: Instruct Gemini to provide a "plain-language summary for a business executive."
 
 #### Phase 2.5: Testing
 
-- [ ] **Test Plan**:
+- [x] **Test Plan**:
   - Create a test plan for the change detection and AI summaries.
   - Note that Gemini API is available as the environment variable `GEMINI_API_KEY`.
+  - The target Service should be **[Expedia](https://www.expedia.com)**.
 
 ### Phase 3: Reporting & Exports
 
