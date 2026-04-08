@@ -1,4 +1,5 @@
 ---
+name: hint
 description: Generate hints to solve the following problem of competitive programming.
 ---
 

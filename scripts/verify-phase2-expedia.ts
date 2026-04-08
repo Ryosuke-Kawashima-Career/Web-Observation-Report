@@ -22,7 +22,7 @@ const TARGET_URL = 'https://www.expedia.com';
 async function main() {
   console.log('=== Phase 2 Verification: Change Detection & AI Summaries ===\n');
 
-  // ── 1. Prepare target ────────────────────────────────────────────────────
+  // 1. Prepare target
   let targetId: number;
   const existing = TargetService.getAll().find((t) => t.company_name === TARGET_NAME);
   if (existing) {
@@ -33,7 +33,7 @@ async function main() {
     console.log(`[target] Registered new target (ID=${targetId})`);
   }
 
-  // ── 2. Capture / retrieve baseline ──────────────────────────────────────
+  // 2. Capture / retrieve baseline
   let baseline = SnapshotService.getBaseline(targetId);
   if (!baseline) {
     console.log('[baseline] No baseline found – capturing now…');
@@ -45,7 +45,7 @@ async function main() {
     console.log(`[baseline] Found: ${baseline.screenshot_path}`);
   }
 
-  // ── 3. Capture current snapshot ─────────────────────────────────────────
+  // 3. Capture current snapshot
   console.log('\n[current] Capturing current snapshot…');
   const currentCap = await CaptureService.capture(TARGET_URL, targetId);
   const currentId = Number(
@@ -53,7 +53,7 @@ async function main() {
   );
   console.log(`[current] Saved: ${currentCap.screenshotPath} (ID=${currentId})`);
 
-  // ── 4. Visual comparison ─────────────────────────────────────────────────
+  // 4. Visual comparison
   console.log('\n[visual] Running pixel-level comparison…');
   const visualDiff = await VisualComparator.compare(
     baseline.screenshot_path,
@@ -63,7 +63,7 @@ async function main() {
   console.log(`[visual] Pixel change: ${visualDiff.pixelChangePct.toFixed(2)}%`);
   console.log(`[visual] Heatmap: ${visualDiff.heatmapPath}`);
 
-  // ── 5. Structural comparison ─────────────────────────────────────────────
+  // 5. Structural comparison
   console.log('\n[structural] Diffing DOM text content…');
   const structuralDiff = await StructuralComparator.compare(
     baseline.html_path,
@@ -78,7 +78,7 @@ async function main() {
     structuralDiff.significantChanges.slice(0, 5).forEach((c) => console.log(`  ${c}`));
   }
 
-  // ── 6. Gemini AI summary ─────────────────────────────────────────────────
+  // 6. Gemini AI summary
   console.log('\n[gemini] Generating AI summary…');
   const target = TargetService.getById(targetId)!;
   let aiSummary = '(Gemini unavailable)';
@@ -105,7 +105,7 @@ async function main() {
     console.warn('[gemini] Error:', (err as Error).message);
   }
 
-  // ── 7. Persist comparison ────────────────────────────────────────────────
+  // 7. Persist comparison
   console.log('\n[db] Saving comparison record…');
   let comparisonId;
   try {

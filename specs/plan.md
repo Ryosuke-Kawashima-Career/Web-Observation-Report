@@ -9,15 +9,14 @@ A robust, AI-powered web monitoring system designed to track UI and pricing chan
 ## 1. Architecture & Tech Stack
 
 | Layer | Technology | Rationale |
-|---|---|---|
+| --- | --- | --- |
 | **Runtime** | Node.js (TypeScript) | Strong ecosystem for web automation and type safety. |
-| **Automation** | Playwright | Industry-leading browser automation with excellent screenshot/DOM support. |
-| **DOM Diff** | `jsdom` + `diff` | Accurate structural comparison of page source. |
-| **AI Engine** | **Google Gemini API** | Generates plain-language summaries (FR-09) from raw diff data. |
+| **Automation** | Playwright | Browser automation for DOM extraction and reference screenshots (FR-08). |
+| **DOM Diff** | `jsdom` + `diff` | Accurate structural comparison of page source (FR-05). |
+| **Information Gathering** | **Google Search API** | Fetches the latest news/changes about the target website (FR-06). |
+| **AI Engine** | **Google Gemini API** | Generates plain-language summaries from DOM diffs and Search context (FR-09). |
 | **Database** | SQLite (`better-sqlite3`) | Self-contained, zero-configuration persistent storage (FR-03, NFR-06). |
 | **Reports** | `pptxgenjs` | Client/Server-side PPTX generation without heavy Office dependencies. |
-| **Frontend** | Next.js (App Router) | Provides a polished, responsive UI for non-technical users (NFR-01). |
-| **Styling** | Tailwind CSS + Shadcn UI | Modern, accessible components for a professional look and feel. |
 
 ---
 
@@ -30,27 +29,27 @@ A robust, AI-powered web monitoring system designed to track UI and pricing chan
 - [x] **Target Management (FR-01, FR-02)**:
   - Implement SQLite schema for `targets` and `snapshots`.
   - Create CRUD services for managing OTA targets (Company Name, URL).
-- [x] **Capture Engine**:
-  - Configure Playwright with realistic User-Agents and viewports (1920x1080).
+- [x] **Capture Engine (FR-08)**:
+  - Configure Playwright with realistic User-Agents.
   - Implement a `CaptureService` that saves:
-    - Full-page PNG screenshot.
-    - Sanitized DOM snapshot (HTML).
-- [x] **Baseline Recording (FR-06)**:
-  - Logic to designate the first successful capture as the "Baseline".
-  - Mechanism to manually reset baseline via UI.
+    - Full-page PNG screenshot (for user visual reference only).
+    - Sanitized DOM snapshot (HTML) for programmatic diffing.
+- [x] **Baseline Recording (FR-07)**:
+  - Logic to designate the first successful DOM capture as the "Baseline".
+  - Mechanism to manually reset baseline.
 
 ### Phase 2: Change Detection & AI Summaries
 
 **Goal**: Detect differences and explain them using Gemini.
 
-- [x] **Visual Comparator (FR-05, FR-07)**:
-  - Generate a "Difference Heatmap" PNG.
-- [x] **Structural Comparator (FR-07)**:
+- [ ] **Google Search Integration (FR-06)**:
+  - Query search engines (e.g., using Serper API) for recent news or announcements regarding the target domain.
+- [x] **Structural Comparator (FR-05)**:
   - Diff the DOM snapshots using a text-based diffing algorithm.
   - Extract specific changes (e.g., text content, CSS class changes).
 - [x] **Gemini Integration (FR-09)**:
-  - Feed the structural diff and (optionally) vision-based analysis to Gemini.
-  - **Prompt Engineering**: Instruct Gemini to provide a "plain-language summary for a business executive."
+  - Feed the structural diff AND the Google Search results to Gemini.
+  - **Prompt Engineering**: Instruct Gemini to provide a "plain-language summary for a business executive," correlating structural edits with real-world context gathered from search.
 
 #### Phase 2.5: Testing
 
@@ -66,10 +65,10 @@ A robust, AI-powered web monitoring system designed to track UI and pricing chan
 - [ ] **Report Generation (FR-08)**:
   - Automatic trigger after monitoring job completes.
   - Aggregate: Target name, URL, Timestamp, Before/After images, and Gemini summary.
-- [ ] **Export Formats (FR-10)**:
+- [ ] **Export Formats (FR-11)**:
   - **Markdown/Text**: Structured summary with embedded image links.
-  - **Visual Diff**: Combined "Side-by-Side" view with heatmap overlay.
-  - **PowerPoint**: Multi-slide deck (Title, Context, Visual Diff, AI Summary).
+  - **Visual Reference**: High-resolution "Before/After" screenshot pairs (FR-08) without computed heatmaps.
+  - **PowerPoint**: Multi-slide deck (Title, Context, Before/After Images, AI Summary).
 
 ### Phase 4: Automation & Reliability
 
@@ -84,21 +83,6 @@ A robust, AI-powered web monitoring system designed to track UI and pricing chan
   - Create a test plan for the monitoring scheduler.
   - Note that `node-cron` is available as the environment variable `NODE_CRON`.
 
-### Phase 5: User Interface (Usability)
-
-**Goal**: Provide a "Secretary-Friendly" dashboard.
-
-- [ ] **Dashboard**:
-  - List of monitored OTAs with "Status" badges (Stable / Changed / Error).
-  - "Run Now" button for manual checks.
-- [ ] **Observation Feed**:
-  - Chronological list of generated reports.
-  - Modal view for inspecting visual diffs and summaries.
-- [ ] **Export Center**:
-  - One-click download buttons for MD, PNG, and PPTX.
-
----
-
 ## 3. Directory Structure
 
 ```text
@@ -107,10 +91,9 @@ web-observation-report/
 │   ├── app/                # Next.js Frontend (React)
 │   ├── lib/
 │   │   ├── engine/         # Playwright & Capture Logic
-│   │   ├── analysis/       # Diffing & Gemini Integration
+│   │   ├── analysis/       # Structural Diffing, Custom Search, & Gemini Integration
 │   │   ├── reporting/      # MD & PPTX Generators
 │   │   └── db/             # SQLite / Prisma Schema
-│   ├── components/         # UI Components (Shadcn)
 │   └── jobs/               # Scheduler & Background Tasks
 ├── public/
 │   └── storage/            # Screenshots & Diff Heatmaps
@@ -123,16 +106,15 @@ web-observation-report/
 ## 4. Risks & Mitigations
 
 | Risk | Mitigation |
-|---|---|
+| --- | --- |
 | **Aggressive Bot Detection** | Use residential proxies or `playwright-stealth`. |
-| **False Positives (Dynamic Content)** | Implement "Ignore Regions" (e.g., ad banners) in the visual diff config. |
 | **Large Storage Growth** | Implement a retention policy (e.g., delete snapshots older than 30 days). |
-| **API Costs (Gemini)** | Only call Gemini when a structural change exceeds a specific threshold. |
+| **API Costs (Gemini/Search)** | Only call external APIs when a structural change exceeds a specific threshold. |
 
 ---
 
 ## 5. Success Criteria
 
-1. A user can add a URL and receive a PPTX report within 2 minutes.
-2. Changes as small as a button color or a $1 price shift are detected.
-3. The system recovers automatically from a lost internet connection.
+1. A user can run the system and receive a PPTX report highlighting structured changes and search facts.
+2. Changes as small as a $1 price shift are detected via the DOM without being thrown off by rendering pixels.
+3. The user can clearly see what changed visually via before/after screenshot attachments.

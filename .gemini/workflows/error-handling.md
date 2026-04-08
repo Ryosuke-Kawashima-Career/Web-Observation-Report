@@ -1,3 +1,8 @@
+---
+name: error-handling
+description: Guide the learner through a hands-on coding exercise to reinforce an LLM concept with scaffolding and checkpoints.
+---
+
 # Development Error Handling
 
 ## Persona

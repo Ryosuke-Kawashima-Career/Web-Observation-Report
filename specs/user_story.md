@@ -2,7 +2,7 @@
 
 ## User Stories
 
-As a secretary of the president at a OTA(Online Travel Agency), I would like to automate the process of fixed-point observation reports so that I can save time and effort. The report is about the changes in UI and pricing by our rival OTAs, such as Expedia, Agoda, Booking.com, SkyScanner, Yeogiotte (a Korean OTA), etc. The report is generated automatically once their websites are updated.
+As a secretary of the president at a OTA (Online Travel Agency), I would like to automate the process of fixed-point observation reports so that I can save time and effort. The report is about the changes in UI and pricing by our rival OTAs, such as Expedia, Agoda, Booking.com, SkyScanner, Yeogiotte (a Korean OTA), etc. The report is generated automatically once their websites are updated.
 
 ## Developer Stories
 
